@@ -1,0 +1,24 @@
+{
+  "modules": {
+    "torch": true,
+    "torchvision": true,
+    "faster_whisper": true,
+    "manim": true,
+    "cv2": true,
+    "moviepy": true,
+    "PIL": true,
+    "numpy": true,
+    "diffusers": true,
+    "transformers": true,
+    "onnxruntime": true
+  },
+  "tools": {
+    "ComfyUI": true,
+    "Real-ESRGAN": true,
+    "RIFE": true,
+    "Forge": true
+  },
+  "note": "Model weights are not downloaded. Put model weights under /mnt/gpu-work/models before using ComfyUI/Real-ESRGAN/RIFE/Forge/AnimateDiff/Wan/SVD.",
+  "torch_cuda_available": true,
+  "torch_cuda_device": "NVIDIA L4"
+}

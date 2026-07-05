@@ -1,0 +1,11 @@
+[Unit]
+Description=GPU Renderer Status Web Service
+After=network.target
+[Service]
+User=ubuntu
+WorkingDirectory=/mnt/gpu-work/web
+ExecStart=/mnt/gpu-work/tools/venv/bin/uvicorn gpu_status_server:app --host 0.0.0.0 --port 8787
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target

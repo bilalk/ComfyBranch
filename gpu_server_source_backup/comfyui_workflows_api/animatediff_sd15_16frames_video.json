@@ -1,0 +1,96 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd15_v1-5-pruned-emaonly-fp16.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "Positive Prompt" },
+    "inputs": {
+      "clip": ["1", 1],
+      "text": "A high-quality 3D render of a futuristic fidget spinner, metallic finish, spinning smoothly, studio lighting, 4k resolution."
+    }
+  },
+  "3": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "Negative Prompt" },
+    "inputs": {
+      "clip": ["1", 1],
+      "text": "deformed, warped, flicker, unstable geometry, duplicate objects, text, watermark, low quality, blurry, noisy"
+    }
+  },
+  "4": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 16
+    }
+  },
+  "5": {
+    "class_type": "ADE_LoadAnimateDiffModel",
+    "inputs": {
+      "model_name": "mm_sd_v15_v2.ckpt"
+    }
+  },
+  "6": {
+    "class_type": "ADE_LoopedUniformContextOptions",
+    "inputs": {
+      "context_length": 16,
+      "context_stride": 1,
+      "context_overlap": 4,
+      "closed_loop": false
+    }
+  },
+  "7": {
+    "class_type": "ADE_ApplyAnimateDiffModelSimple",
+    "inputs": {
+      "motion_model": ["5", 0]
+    }
+  },
+  "11": {
+    "class_type": "ADE_UseEvolvedSampling",
+    "inputs": {
+      "model": ["1", 0],
+      "beta_schedule": "autoselect",
+      "m_models": ["7", 0],
+      "context_options": ["6", 0]
+    }
+  },
+  "8": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["11", 0],
+      "positive": ["2", 0],
+      "negative": ["3", 0],
+      "latent_image": ["4", 0],
+      "seed": 123456789,
+      "steps": 20,
+      "cfg": 7.0,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0
+    }
+  },
+  "9": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["8", 0],
+      "vae": ["1", 2]
+    }
+  },
+  "10": {
+    "class_type": "VHS_VideoCombine",
+    "inputs": {
+      "images": ["9", 0],
+      "frame_rate": 8,
+      "loop_count": 0,
+      "filename_prefix": "COMFYBranch/animatediff_sd15",
+      "format": "video/h264-mp4",
+      "pingpong": false,
+      "save_output": true
+    }
+  }
+}

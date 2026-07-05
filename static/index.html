@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COMFYBranch Remote Video Lab</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>COMFYBranch Remote Video Lab</h1>
+      <p>Prompt planner + GPU video chunk generator for the remote Ubuntu server.</p>
+    </div>
+    <div id="status" class="pill">Loading...</div>
+  </header>
+
+  <main>
+    <section class="card hero">
+      <h2>1. Main prompt</h2>
+      <textarea id="prompt" rows="8" placeholder="Write a long prompt. The planner will structure it and split it into meaningful 6–10 second video chunks.">A high-quality 3D render of a futuristic fidget spinner, metallic finish, spinning smoothly, studio lighting, 4k resolution.</textarea>
+      <div class="grid four">
+        <label>Chunks
+          <select id="chunks">
+            <option value="auto">Auto judge best</option>
+            <option value="1">1 chunk</option>
+            <option value="2">2 chunks</option>
+            <option value="3">3 chunks</option>
+            <option value="4">4 chunks</option>
+            <option value="5">5 chunks</option>
+            <option value="6">6 chunks</option>
+            <option value="8">8 chunks</option>
+            <option value="10">10 chunks</option>
+          </select>
+        </label>
+        <label>Chunk length
+          <select id="chunkSeconds">
+            <option value="6">6 seconds</option>
+            <option value="8">8 seconds</option>
+            <option value="10">10 seconds</option>
+          </select>
+        </label>
+        <label>Aspect
+          <select id="aspect">
+            <option value="16:9">16:9 YouTube</option>
+            <option value="9:16">9:16 Shorts/Reels</option>
+          </select>
+        </label>
+        <label>Generate mode
+          <select id="mode"></select>
+        </label>
+      </div>
+      <div class="actions">
+        <button id="refreshCaps">Refresh server capabilities</button>
+        <button id="startComfy">Start / test ComfyUI</button>
+        <button id="wanStatus">Wan install/status</button>
+        <button id="plan" class="primary">Analyze prompt + create production plan</button>
+        <button id="generate" class="primary" disabled>Generate video sets</button>
+      </div>
+    </section>
+
+    <section class="grid two">
+      <div class="card">
+        <h2>2. Real GPU server capabilities</h2>
+        <div id="capsSummary" class="summary">Not loaded yet.</div>
+        <details>
+          <summary>Raw inventory</summary>
+          <pre id="capsRaw"></pre>
+        </details>
+      </div>
+      <div class="card">
+        <h2>3. Activity</h2>
+        <div class="progress-wrap"><div id="progressBar" class="progress-bar" style="width:0%"></div></div>
+        <div id="progressText" class="progress-text">No active job.</div>
+        <pre id="log">Ready.</pre>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>4. Generated production plan</h2>
+      <div id="planSummary" class="summary">No plan yet.</div>
+      <div id="chunksOut" class="chunks"></div>
+      <details open>
+        <summary>Full JSON plan</summary>
+        <pre id="planJson"></pre>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>5. Output videos</h2>
+      <div id="outputs" class="outputs">No videos generated yet.</div>
+      <details>
+        <summary>Generation manifest</summary>
+        <pre id="manifest"></pre>
+      </details>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

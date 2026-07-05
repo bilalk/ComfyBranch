@@ -1,0 +1,60 @@
+# Audio/Video generated output files
+*.mp4
+*.webm
+*.mov
+*.mkv
+*.avi
+*.mp3
+*.wav
+*.ogg
+*.flac
+*.aac
+*.m4a
+
+# Large images/gifs (generated outputs)
+*.gif
+# Keep small UI assets, ignore large renders
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Data / outputs (runtime generated)
+data/outputs/
+data/jobs/
+data/logs/
+data/last-capabilities.json
+outputs/
+
+# Logs
+*.log
+comfybranch.out.log
+comfybranch.err.log
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Credentials / keys
+*.ppk
+*.pem
+
+# Node (if any)
+node_modules/
+
+# Large model files
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.onnx
